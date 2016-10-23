@@ -16,17 +16,30 @@ services:
       - '6379:6379'
     volumes:
       - 'docker-redis:/var/lib/redis/data'
+  sidekiq:
+    depends_on:
+      - 'postgres'
+      - 'redis'
+    build: .
+    command: bundle exec sidekiq
+    links:
+      - postgres
+      - redis
+    env_file:
+      - .docker.env
   app:
     depends_on:
       - 'postgres'
       - 'redis'
+      - 'sidekiq'
     build: .
     command: bundle exec puma -C config/puma.rb
     env_file:
       - .docker.env
     links:
       - postgres
-      -redis
+      - redis
+      - sidekiq
 volumes:
   docker-postgres:
   docker-redis:
