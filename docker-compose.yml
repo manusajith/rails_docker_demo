@@ -1,0 +1,21 @@
+---
+version: '2'
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'docker-postgres:/var/lib/postgresql/data'
+  app:
+    build: .
+    command: bundle exec puma -C config/puma.rb
+    env_file:
+      - .docker.env
+    links:
+      - postgres
+volumes:
+  docker-postgres:
