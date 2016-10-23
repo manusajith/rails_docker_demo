@@ -1,24 +1,47 @@
-# README
+# Ruby On Rails On Docker Demo.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This repo demonstrates the usage of Docker to run a Ruby on Rails app, with Sidekiq, Nginx, Redis
 
-Things you may want to cover:
+## Stack
 
-* Ruby version
+The whole stack is extracted as containers.
 
-* System dependencies
+### Nginx as reverse proxy
 
-* Configuration
+The `web` service uses Nginx to reverse proxy the requests to the application server(puma)
 
-* Database creation
+### Postgresql as database
 
-* Database initialization
+The database used in the app is PostgreSQL, and is extracted into postgres container.
 
-* How to run the test suite
+### Application container
 
-* Services (job queues, cache servers, search engines, etc.)
+This is a bootstrapped vanilla Rails 5 application using Puma as application server.
 
-* Deployment instructions
+### Sidekiq for heavy lifting
 
-* ...
+All the heavy-lifting jobs are handle by the Sidekiq instance as ActiveJob adapter and using Redis.
+
+### redis
+
+Redis is used as backend for Sidekiq workers and also as cache store in the Rails app.
+
+
+### Quick Start.
+
+#### First time setup:
+
+    docker-compose build
+    docker-compose up -d # Application can be accessed at http://localhost:8080
+
+#### Some example/useful commands
+    docker-compose run bin/setup
+    docker-compose run rails db:create
+    docker-compose run rails db:migrate
+    docker-compose run rails assets:precompile
+    docker-compose run bundle exec rspec
+
+
+### Notes:
+
+All the environment configuration can be changed in `.docker.env` file.
