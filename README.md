@@ -45,3 +45,10 @@ Redis is used as backend for Sidekiq workers and also as cache store in the Rail
 ### Notes:
 
 All the environment configuration can be changed in `.docker.env` file.
+
+
+### TODO:
+  There are some room for improvements in the current setup.
+  Dependencies can be isolated to virtual dependencies and can be deleted afterwards.
+  Bundle install and gems can be cached using a volume.
+  Multi environment is overlooked at this stage.
