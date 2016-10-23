@@ -33,15 +33,13 @@ services:
       - 'redis'
       - 'sidekiq'
     build: .
-    command: bundle exec puma -C config/puma.rb
+    command: bundle exec rails s -b 0.0.0.0
     env_file:
       - .docker.env
     links:
       - postgres
       - redis
       - sidekiq
-    expose:
-    - '3000'
   web:
     build:
       context: .
@@ -49,7 +47,7 @@ services:
     links:
       - app
     ports:
-      - '80:80'
+      - '8080:80'
 volumes:
   docker-postgres:
   docker-redis:
