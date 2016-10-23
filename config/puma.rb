@@ -4,5 +4,5 @@ threads threads_count, threads_count
 port ENV.fetch('PORT') { 3000 }
 environment ENV.fetch('RAILS_ENV') { 'development' }
 plugin :tmp_restart
-pidfile "#{RAILS_ROOT}/tmp/pids/puma.pid"
+pidfile "tmp/pids/puma.pid"
 workers ENV.fetch('WEB_CONCURRENCY') { 0 }
