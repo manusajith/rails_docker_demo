@@ -40,6 +40,16 @@ services:
       - postgres
       - redis
       - sidekiq
+    expose:
+    - '3000'
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    links:
+      - app
+    ports:
+      - '80:80'
 volumes:
   docker-postgres:
   docker-redis:
