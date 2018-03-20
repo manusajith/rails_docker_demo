@@ -51,3 +51,4 @@ services:
 volumes:
   docker-postgres:
   docker-redis:
+
