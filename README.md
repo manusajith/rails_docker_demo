@@ -1,4 +1,4 @@
-# Ruby On Rails On Docker Demo.
+# Ruby On Rails Docker Demo.
 
 This repo demonstrates the usage of Docker to run a Ruby on Rails app, with Sidekiq, Nginx, Redis
 
